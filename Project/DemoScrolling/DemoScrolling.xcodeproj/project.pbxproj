@@ -21,6 +21,8 @@
 		B3E81FD0188926DF0030AE47 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E81FB2188926DF0030AE47 /* UIKit.framework */; };
 		B3E81FD8188926DF0030AE47 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B3E81FD6188926DF0030AE47 /* InfoPlist.strings */; };
 		B3E81FDA188926DF0030AE47 /* DemoScrollingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E81FD9188926DF0030AE47 /* DemoScrollingTests.m */; };
+		B3E81FEB188927BC0030AE47 /* MAScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E81FEA188927BC0030AE47 /* MAScrollView.m */; };
+		B3E81FEE188927FF0030AE47 /* MAPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E81FED188927FF0030AE47 /* MAPageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,10 @@
 		B3E81FD5188926DF0030AE47 /* DemoScrollingTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DemoScrollingTests-Info.plist"; sourceTree = "<group>"; };
 		B3E81FD7188926DF0030AE47 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B3E81FD9188926DF0030AE47 /* DemoScrollingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoScrollingTests.m; sourceTree = "<group>"; };
+		B3E81FE9188927BC0030AE47 /* MAScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAScrollView.h; sourceTree = "<group>"; };
+		B3E81FEA188927BC0030AE47 /* MAScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAScrollView.m; sourceTree = "<group>"; };
+		B3E81FEC188927FF0030AE47 /* MAPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAPageView.h; sourceTree = "<group>"; };
+		B3E81FED188927FF0030AE47 /* MAPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAPageView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +162,10 @@
 		B3E81FE61889271E0030AE47 /* ios */ = {
 			isa = PBXGroup;
 			children = (
+				B3E81FE9188927BC0030AE47 /* MAScrollView.h */,
+				B3E81FEA188927BC0030AE47 /* MAScrollView.m */,
+				B3E81FEC188927FF0030AE47 /* MAPageView.h */,
+				B3E81FED188927FF0030AE47 /* MAPageView.m */,
 			);
 			name = ios;
 			path = ../../Classes/ios;
@@ -260,8 +270,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3E81FBF188926DF0030AE47 /* MAAppDelegate.m in Sources */,
+				B3E81FEB188927BC0030AE47 /* MAScrollView.m in Sources */,
 				B3E81FC5188926DF0030AE47 /* MAViewController.m in Sources */,
 				B3E81FBB188926DF0030AE47 /* main.m in Sources */,
+				B3E81FEE188927FF0030AE47 /* MAPageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
