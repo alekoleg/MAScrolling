@@ -43,7 +43,7 @@
     _animationsViews = [NSMutableArray array];
 }
 
-- (void)addView:(UIView *)view withAnimatioForKeyPath:(NSString *)keyPath evaluateAnimation:(void (^)(CABasicAnimation *))animationBlock {
+- (void)addView:(UIView *)view withAnimatioForKeyPath:(NSString *)keyPath evaluateAnimation:(void (^)(CABasicAnimation *))animationBlock timeOffsetBlock:(CFTimeInterval (^)(float))timeOffsetBlock {
     NSAssert(view, @"nil view");
     [self addSubview:view];
     view.layer.anchorPoint = CGPointMake(0, 0);
@@ -53,7 +53,7 @@
     animationBlock(animation);
     [view.layer addAnimation:animation forKey:keyPath];
     [_animationsViews addObject:view];
-    [_animtaionsMap setObject:keyPath forKey:view];
+    [_animtaionsMap setObject:timeOffsetBlock forKey:view];
 }
 
 //============================================================================================
@@ -68,8 +68,8 @@
     if (_percentage != percentage) {
         _percentage = percentage;
         [_animationsViews enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop) {
-            CABasicAnimation *animation = (CABasicAnimation *)[obj.layer animationForKey:[_animtaionsMap objectForKey:obj]];
-            obj.layer.timeOffset = (animation.duration > _percentage) ? _percentage : animation.duration;
+            TimeOffsetBlock block = [_animtaionsMap objectForKey:obj];
+            obj.layer.timeOffset = (block) ? (block(_percentage)) : _percentage;
         }];
     }
 }

@@ -44,7 +44,9 @@
     [pageview addView:view withAnimatioForKeyPath:@"position" evaluateAnimation:^(CABasicAnimation *animation) {
         animation.toValue = to;
         animation.fromValue = from;
-        animation.duration = 0.17;
+        animation.duration = 0.16;
+    } timeOffsetBlock:^CFTimeInterval(float percentage) {
+        return (percentage < 0.16) ? percentage : 0.16;
     }];
     
 }

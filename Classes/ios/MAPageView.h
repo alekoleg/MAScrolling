@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef CFTimeInterval (^TimeOffsetBlock) (float percentage);
+typedef void (^AnimationBlock) (CABasicAnimation *animation);
 @interface MAPageView : UIView
 
-- (void)addView:(UIView *)view withAnimatioForKeyPath:(NSString *)keyPath evaluateAnimation:(void (^)(CABasicAnimation *animation))animationBlock;
+- (void)addView:(UIView *)view withAnimatioForKeyPath:(NSString *)keyPath evaluateAnimation:(AnimationBlock)animationBlock timeOffsetBlock:(TimeOffsetBlock)timeOffsetBlock;
 
 - (void)updateAnimationPercentage:(float)percentage;
 
