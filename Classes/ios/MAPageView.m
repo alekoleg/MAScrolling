@@ -76,8 +76,7 @@
 
 - (void)viewNotVisible {
     if (_percentage != 0) {
-        _percentage = 0;
-        [self updateAnimationPercentage:_percentage];
+        [self updateAnimationPercentage:0];
     }
 }
 
