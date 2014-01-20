@@ -18,4 +18,5 @@ typedef void (^AnimationBlock) (CABasicAnimation *animation);
 
 - (void)updateAnimationPercentage:(float)percentage;
 
+- (void)viewNotVisible;
 @end

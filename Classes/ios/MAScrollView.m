@@ -59,6 +59,8 @@
             if (obj.frame.origin.x <= self.contentOffset.x && obj.frame.origin.x + obj.frame.size.width >= self.contentOffset.x){
                 float persentage = (self.contentOffset.x - obj.frame.origin.x) / obj.frame.size.width;
                 [obj updateAnimationPercentage:persentage];
+            } else {
+                [obj viewNotVisible];
             }
         }
     }];
