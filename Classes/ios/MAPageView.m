@@ -66,6 +66,8 @@
     [animations addObject:animation];
     CAAnimationGroup *newGroup = [CAAnimationGroup animation];
     newGroup.animations = [animations copy];
+    CAAnimation *firstAnimation = [animations firstObject];
+    newGroup.duration = firstAnimation.duration;
     [view.layer removeAllAnimations];
     [view.layer addAnimation:newGroup forKey:@"animation"];
     
