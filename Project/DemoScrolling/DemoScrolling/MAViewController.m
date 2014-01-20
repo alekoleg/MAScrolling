@@ -49,6 +49,11 @@
         return (percentage < 0.16) ? percentage : 0.16;
     }];
     
+    [pageview addAnimationsToView:view forKeyPath:@"opacity" evaluateAnimation:^(CABasicAnimation *animation) {
+        animation.fromValue = @(1);
+        animation.toValue = @(0);
+        animation.duration = 0.16;
+    }];
 }
 
 @end

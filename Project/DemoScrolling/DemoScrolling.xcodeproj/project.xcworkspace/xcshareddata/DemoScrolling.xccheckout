@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>14171E6D-7035-4ABB-A975-4453990B47C0</string>
+	<key>IDESourceControlProjectName</key>
+	<string>DemoScrolling</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>9DDD1068-4740-42F2-B56E-692F7FC98BBB</key>
+		<string>https://github.com/alekoleg/MAScrolling.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Project/DemoScrolling/DemoScrolling.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>9DDD1068-4740-42F2-B56E-692F7FC98BBB</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/alekoleg/MAScrolling.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>9DDD1068-4740-42F2-B56E-692F7FC98BBB</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>9DDD1068-4740-42F2-B56E-692F7FC98BBB</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MAScrolling</string>
+		</dict>
+	</array>
+</dict>
+</plist>

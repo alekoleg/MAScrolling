@@ -43,7 +43,7 @@
     _animationsViews = [NSMutableArray array];
 }
 
-- (void)addView:(UIView *)view withAnimatioForKeyPath:(NSString *)keyPath evaluateAnimation:(void (^)(CABasicAnimation *))animationBlock timeOffsetBlock:(CFTimeInterval (^)(float))timeOffsetBlock {
+- (void)addView:(UIView *)view withAnimatioForKeyPath:(NSString *)keyPath evaluateAnimation:(AnimationBlock)animationBlock timeOffsetBlock:(TimeOffsetBlock)timeOffsetBlock {
     NSAssert(view, @"nil view");
     [self addSubview:view];
     view.layer.anchorPoint = CGPointMake(0, 0);
@@ -51,9 +51,24 @@
 
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:keyPath];
     animationBlock(animation);
-    [view.layer addAnimation:animation forKey:keyPath];
+    CAAnimationGroup *group = [CAAnimationGroup animation];
+    group.animations = @[animation];
+    [view.layer addAnimation:group forKey:@"animation"];
     [_animationsViews addObject:view];
     [_animtaionsMap setObject:timeOffsetBlock forKey:view];
+}
+
+- (void)addAnimationsToView:(UIView *)view forKeyPath:(NSString *)keyPath evaluateAnimation:(AnimationBlock)animationBlock {
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:keyPath];
+    animationBlock(animation);
+    CAAnimationGroup *group = (CAAnimationGroup *)[view.layer animationForKey:@"animation"];
+    NSMutableArray *animations = [[group animations]mutableCopy];
+    [animations addObject:animation];
+    CAAnimationGroup *newGroup = [CAAnimationGroup animation];
+    newGroup.animations = [animations copy];
+    [view.layer removeAllAnimations];
+    [view.layer addAnimation:newGroup forKey:@"animation"];
+    
 }
 
 //============================================================================================

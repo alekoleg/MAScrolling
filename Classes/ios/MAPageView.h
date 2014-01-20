@@ -14,6 +14,8 @@ typedef void (^AnimationBlock) (CABasicAnimation *animation);
 
 - (void)addView:(UIView *)view withAnimatioForKeyPath:(NSString *)keyPath evaluateAnimation:(AnimationBlock)animationBlock timeOffsetBlock:(TimeOffsetBlock)timeOffsetBlock;
 
+- (void)addAnimationsToView:(UIView *)view forKeyPath:(NSString *)keyPath evaluateAnimation:(AnimationBlock)animationBlock ;
+
 - (void)updateAnimationPercentage:(float)percentage;
 
 @end
