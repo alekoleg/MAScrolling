@@ -53,6 +53,7 @@
     animationBlock(animation);
     CAAnimationGroup *group = [CAAnimationGroup animation];
     group.animations = @[animation];
+    group.duration = animation.duration;
     [view.layer addAnimation:group forKey:@"animation"];
     [_animationsViews addObject:view];
     [_animtaionsMap setObject:timeOffsetBlock forKey:view];
