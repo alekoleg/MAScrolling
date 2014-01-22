@@ -66,5 +66,12 @@
     }];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self updateSubViewsStatus];
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self updateSubViewsStatus];
+}
 
 @end
