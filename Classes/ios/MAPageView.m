@@ -91,7 +91,7 @@
     }
     if (_percentage != percentage) {
         _percentage = percentage;
-        [_animationsViews enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop) {
+        [_animationsViews enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop) {
             TimeOffsetBlock block = [_animtaionsMap objectForKey:obj];
             obj.layer.timeOffset = (block) ? (block(_percentage)) : _percentage;
         }];

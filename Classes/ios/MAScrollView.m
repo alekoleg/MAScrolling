@@ -54,7 +54,7 @@
 
 - (void)updateSubViewsStatus {
     NSLog(@"x - %f, y - %f", self.contentOffset.x, self.contentOffset.y);
-    [self.subviews enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(MAPageView * obj, NSUInteger idx, BOOL *stop) {
+    [self.subviews enumerateObjectsUsingBlock:^(MAPageView * obj, NSUInteger idx, BOOL *stop) {
         if ([obj isKindOfClass:[MAPageView class]]) {
             if (obj.frame.origin.x <= self.contentOffset.x && obj.frame.origin.x + obj.frame.size.width >= self.contentOffset.x){
                 float persentage = (self.contentOffset.x - obj.frame.origin.x) / obj.frame.size.width;
