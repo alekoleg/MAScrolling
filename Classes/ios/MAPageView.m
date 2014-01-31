@@ -14,7 +14,7 @@
 @property (nonatomic) float percentage;
 @property (nonatomic, strong) NSMapTable *animtaionsMap;
 @property (nonatomic, strong) NSMutableArray *animationsViews;
-
+@property (nonatomic, strong) NSMapTable *groupAnimationMap;
 @property (nonatomic, strong) NSMutableArray *tmpAnimtaions;
 @end
 
@@ -49,17 +49,23 @@
     _animtaionsMap = [NSMapTable strongToStrongObjectsMapTable];
     _animationsViews = [NSMutableArray array];
     _tmpAnimtaions = [NSMutableArray array];
+    _groupAnimationMap = [NSMapTable strongToStrongObjectsMapTable];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(willEnterForeground:) name:@"THViewControllerViewWillAppear" object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(willEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
-    
 }
 
 - (void)willEnterForeground:(NSNotification *)not {
-    for (CAAnimationGroup *anim in _tmpAnimtaions) {
-        //        NSLog(@"%i animtaions", anim.animations.count);
-        UIView *view = [anim valueForKey:@"animationView"];
+    
+    for (UIView *view in _groupAnimationMap) {
+        CAAnimation *anim = [_groupAnimationMap objectForKey:view];
+        [view.layer removeAllAnimations];
+        view.layer.anchorPoint = CGPointMake(0, 0);
+        view.layer.speed = 0.0;
+        view.layer.timeOffset = 0.01;
         [view.layer addAnimation:anim forKey:@"animation"];
+        view.layer.timeOffset = 0.02;
+        view.layer.timeOffset = _percentage;
     }
-    [_tmpAnimtaions removeAllObjects];
 }
 
 - (void)addView:(UIView *)view withAnimatioForKeyPath:(NSString *)keyPath evaluateAnimation:(AnimationBlock)animationBlock timeOffsetBlock:(TimeOffsetBlock)timeOffsetBlock {
@@ -70,12 +76,14 @@
     
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:keyPath];
     animationBlock(animation);
+    
     CAAnimationGroup *group = [CAAnimationGroup animation];
     group.animations = @[animation];
     group.duration = animation.duration;
     group.delegate = self;
+    group.fillMode = kCAFillModeForwards;
     [group setValue:view forKey:@"animationView"];
-    
+    [_groupAnimationMap setObject:group forKey:view];
     [view.layer addAnimation:group forKey:@"animation"];
     [_animationsViews addObject:view];
     [_animtaionsMap setObject:timeOffsetBlock forKey:view];
@@ -84,18 +92,12 @@
 - (void)addAnimationsToView:(UIView *)view forKeyPath:(NSString *)keyPath evaluateAnimation:(AnimationBlock)animationBlock {
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:keyPath];
     animationBlock(animation);
-    CAAnimationGroup *group = (CAAnimationGroup *)[view.layer animationForKey:@"animation"];
+    CAAnimationGroup *group = [_groupAnimationMap objectForKey:view];
     NSMutableArray *animations = [[group animations]mutableCopy];
     [animations addObject:animation];
-    CAAnimationGroup *newGroup = [CAAnimationGroup animation];
-    newGroup.animations = [animations copy];
-    newGroup.delegate = self;
-    CAAnimation *firstAnimation = [animations firstObject];
-    newGroup.duration = firstAnimation.duration;
-    [newGroup setValue:view forKey:@"animationView"];
+    group.animations = [animations copy];
     [view.layer removeAllAnimations];
-    [view.layer addAnimation:newGroup forKey:@"animation"];
-    
+    [view.layer addAnimation:group forKey:@"animation"];
 }
 
 - (void)viewNotVisible {
@@ -105,14 +107,18 @@
 }
 
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
-    CAAnimationGroup *group = [CAAnimationGroup animation];
-    group.animations = [(CAAnimationGroup *)anim animations];
-    group.duration = anim.duration;
-    group.delegate = self;
-    //    NSLog(@"%i save animtaions", group.animations.count);
-    UIView *view = [anim valueForKey:@"animationView"];
-    [group setValue:view forKey:@"animationView"];
-    [_tmpAnimtaions addObject:group];
+    //    CAAnimationGroup *group = [CAAnimationGroup animation];
+    //    group.animations = [(CAAnimationGroup *)anim animations];
+    //    group.duration = anim.duration;
+    //    group.delegate = self;
+    //    group.fillMode = kCAFillModeForwards;
+    ////    NSLog(@"%i save animtaions", group.animations.count);
+    //    UIView *view = [anim valueForKey:@"animationView"];
+    //    [group setValue:view forKey:@"animationView"];
+    //    [_tmpAnimtaions addObject:group];
+    //
+    //    CAAnimation *an = [_groupAnimationMap objectForKey:view];
+    //    [view.layer addAnimation:an forKey:@"animation"];
 }
 
 //============================================================================================
@@ -121,20 +127,25 @@
 - (void)updateAnimationPercentage:(float)percentage {
     if (percentage > 1.0) {
         percentage = 1.0;
-    } else if (percentage <= 0.0) {
+    } else if (percentage < 0.0) {
         percentage = 0.0;
     }
     if (_percentage != percentage) {
         _percentage = percentage;
-        [_animationsViews enumerateObjectsUsingBlock:^(UIView *obj, NSUInteger idx, BOOL *stop) {
-            if (_tmpAnimtaions.count > 0 && [[obj.layer animationKeys]count] == 0) {
-                [self willEnterForeground:nil];
+        for (UIView *obj in _animationsViews) {
+            if ([[obj.layer animationKeys]count] == 0 && [_groupAnimationMap objectForKey:obj]) {
+                [obj.layer removeAllAnimations];
+                CAAnimation *animation = [_groupAnimationMap objectForKey:obj];
+                [obj.layer addAnimation:animation forKey:@"animation"];
             }
+            
             TimeOffsetBlock block = [_animtaionsMap objectForKey:obj];
             obj.layer.timeOffset = (block) ? (block(_percentage)) : _percentage;
-        }];
+        }
     }
 }
 
-
+- (void)layoutSubviews {
+    
+}
 @end
