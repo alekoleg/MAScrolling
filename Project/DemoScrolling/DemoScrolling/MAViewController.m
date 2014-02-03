@@ -37,23 +37,23 @@
     pageview.backgroundColor = [UIColor blackColor];
     [_scrollView addSubview:pageview];
     
-    UIView *view = [[UIView alloc]initWithFrame: CGRectMake(20, 100, 100, 100)];
-    view.backgroundColor = [UIColor redColor];
-    NSValue *from = [NSValue valueWithCGPoint:CGPointMake(20, 100)];
-    NSValue *to = [NSValue valueWithCGPoint:CGPointMake(100, 100)];
-    [pageview addView:view withAnimatioForKeyPath:@"position" evaluateAnimation:^(CABasicAnimation *animation) {
-        animation.toValue = to;
-        animation.fromValue = from;
-        animation.duration = 0.16;
-    } timeOffsetBlock:^CFTimeInterval(float percentage) {
-        return (percentage < 0.16) ? percentage : 0.16;
-    }];
-    
-    [pageview addAnimationsToView:view forKeyPath:@"opacity" evaluateAnimation:^(CABasicAnimation *animation) {
-        animation.fromValue = @(1);
-        animation.toValue = @(0);
-        animation.duration = 0.16;
-    }];
+//    UIView *view = [[UIView alloc]initWithFrame: CGRectMake(20, 100, 100, 100)];
+//    view.backgroundColor = [UIColor redColor];
+//    NSValue *from = [NSValue valueWithCGPoint:CGPointMake(20, 100)];
+//    NSValue *to = [NSValue valueWithCGPoint:CGPointMake(100, 100)];
+//    [pageview addView:view withAnimatioForKeyPath:@"position" evaluateAnimation:^(CABasicAnimation *animation) {
+//        animation.toValue = to;
+//        animation.fromValue = from;
+//        animation.duration = 0.16;
+//    } timeOffsetBlock:^CFTimeInterval(float percentage) {
+//        return (percentage < 0.16) ? percentage : 0.16;
+//    }];
+//    
+//    [pageview addAnimationsToView:view forKeyPath:@"opacity" evaluateAnimation:^(CABasicAnimation *animation) {
+//        animation.fromValue = @(1);
+//        animation.toValue = @(0);
+//        animation.duration = 0.16;
+//    }];
 }
 
 @end
